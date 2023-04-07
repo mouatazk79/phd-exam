@@ -1,16 +1,13 @@
 package klaa.mouataz.edlli.model;
 
+import jakarta.persistence.*;
 import klaa.mouataz.edlli.enumerations.Role;
 import klaa.mouataz.edlli.security.token.Token;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,6 +35,23 @@ public class User implements UserDetails {
 
   @OneToMany(mappedBy = "user")
   private List<Token> tokens;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "student_id", referencedColumnName = "id")
+  private Student student;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "enseignant_id", referencedColumnName = "id")
+  private Enseignant enseignant;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "admin_id", referencedColumnName = "id")
+  private Admin admin;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "cfd_id", referencedColumnName = "id")
+  private CFD cfd;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "vDoyen_id", referencedColumnName = "id")
+  private VDoyen vDoyen;
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private Set<Reclamation> reclamations = new HashSet<>();
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

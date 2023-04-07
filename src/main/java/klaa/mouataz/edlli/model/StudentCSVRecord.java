@@ -13,13 +13,9 @@ public class StudentCSVRecord {
     @CsvBindByName
     private Integer id;
     @CsvBindByName
-    private String first_name;
-    @CsvBindByName
-    private String last_name;
-    @CsvBindByName
     private String email;
     @CsvBindByName
-    private String gender;
+    private String role;
     @CsvBindByName
     private String password;
 }
