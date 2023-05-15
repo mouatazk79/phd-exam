@@ -1,5 +1,6 @@
 package klaa.mouataz.edlli;
 
+import klaa.mouataz.edlli.repos.UserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

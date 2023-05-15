@@ -35,6 +35,8 @@ public class User implements UserDetails {
 
   @OneToMany(mappedBy = "user")
   private List<Token> tokens;
+  @OneToMany(mappedBy = "user")
+  private List <News> news;
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "student_id", referencedColumnName = "id")
   private Student student;
@@ -50,8 +52,7 @@ public class User implements UserDetails {
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "vDoyen_id", referencedColumnName = "id")
   private VDoyen vDoyen;
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-  private Set<Reclamation> reclamations = new HashSet<>();
+
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,4 +1,4 @@
 package klaa.mouataz.edlli.enumerations;
 
-public enum RType {
+public enum NewsType {
 }

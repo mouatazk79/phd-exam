@@ -1,5 +1,6 @@
 package klaa.mouataz.edlli.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import klaa.mouataz.edlli.dto.AuthenticationRequest;
 import klaa.mouataz.edlli.dto.AuthenticationResponse;
 import klaa.mouataz.edlli.services.impl.AuthenticationService;
@@ -26,8 +27,12 @@ public class AuthenticationController {
   }
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(
-      @RequestBody AuthenticationRequest request
+      @RequestBody AuthenticationRequest request,
+      HttpServletRequest httpServletRequest
   ) {
+//    String userRole= String.valueOf(service.authenticate(request));
+//    System.out.println("===================================="+userRole);
+    //service.authenticate(request).
     return ResponseEntity.ok(service.authenticate(request));
   }
 

@@ -1,7 +1,7 @@
-package klaa.mouataz.edlli.model;
+package klaa.mouataz.edlli.dto;
 
-import jakarta.persistence.*;
 import klaa.mouataz.edlli.enumerations.Gender;
+import klaa.mouataz.edlli.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,24 +9,16 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "_vdoyen")
-public class VDoyen {
-    @Id
-    @GeneratedValue
-    private Integer id;
+@NoArgsConstructor
+public class StaffRequest {
     private String firstName;
     private String lastName;
     private LocalDate dob;
-    @Enumerated(EnumType.STRING)
     private Gender gender;
     private String number;
-    @OneToOne(mappedBy = "vDoyen")
     private User user;
 
 }

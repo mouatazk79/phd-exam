@@ -1,26 +1,33 @@
 package klaa.mouataz.edlli.model;
 
 import jakarta.persistence.*;
-import klaa.mouataz.edlli.enumerations.RType;
+import klaa.mouataz.edlli.enumerations.NewsType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = " _reclamation")
-public class Reclamation {
+@Table(name = "_information")
+public class News {
     @Id
     @GeneratedValue
     private Integer id;
-    private RType type;
+    private String title;
     private String description;
+    private LocalDate date;
+    @Enumerated(EnumType.STRING)
+    private NewsType type;
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    @JoinColumn(name = "user_id")
+    public User user;
+
+
 
 }
