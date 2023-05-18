@@ -27,7 +27,7 @@ public class Enseignant {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String number;
-    @OneToMany(mappedBy = "enseignant")
+    @OneToMany
     private Set<Module> modules=new HashSet<>();
     @OneToOne(mappedBy = "enseignant")
     private User user;

@@ -21,9 +21,6 @@ public class Module {
     private Integer id;
     private String name;
     @ManyToOne
-    @JoinColumn(name = "enseig_id", referencedColumnName = "id")
-    private Enseignant enseignant;
-    @ManyToOne
     @JoinColumn(name = "speciality_id", referencedColumnName = "id")
     private Speciality speciality;
     @OneToMany(mappedBy = "module")
