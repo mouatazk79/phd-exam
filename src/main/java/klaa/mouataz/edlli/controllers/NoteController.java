@@ -33,12 +33,11 @@ public class NoteController {
     public Note addNote(@RequestBody Note note){
         return noteService.save(note);
     }
-//    @Transactional
 //    @PostMapping("/add/csv")
+//    @Transactional
 //    public void addNotesCSV(@RequestParam("file") MultipartFile file) throws FileNotFoundException {
-//        File file= ResourceUtils.getFile("src/main/resources/MOCK_DATA.csv");
 //        List<NoteCSVRecord> noteCSVRecords= NoteCSVService.convertCSV(file);
-//        noteCSVRecords.forEach(noteCSVRecord -> noteService.save(Note.builder().id(noteCSVRecord.getId()).note1(noteCSVRecord.getNote1()).note2(noteCSVRecord.getNote2()).note3(noteCSVRecord.getNote3()).enseignant1().build()));
+//        noteCSVRecords.forEach(noteCSVRecord -> noteService.save(Note.builder().id(noteCSVRecord.getId()).note1(noteCSVRecord.getNote1()).note2(noteCSVRecord.getNote2()).note3(noteCSVRecord.getNote3()).build()));
 //    }
     @DeleteMapping("/delete/{id}")
     public void deleteNote(@PathVariable("id")Integer id){

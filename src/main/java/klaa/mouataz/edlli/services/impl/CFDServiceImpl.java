@@ -32,6 +32,7 @@ public class CFDServiceImpl implements CFDService {
                 .lastName(staffRequest.getLastName())
                 .gender(staffRequest.getGender())
                 .dob(staffRequest.getDob())
+                .user(staffRequest.getUser())
                 .number(staffRequest.getNumber())
                 .build();
         return cfdRepository.save(cfd);
