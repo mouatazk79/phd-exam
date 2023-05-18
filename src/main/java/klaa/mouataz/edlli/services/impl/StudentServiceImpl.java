@@ -50,6 +50,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> getStudentBySpeciality(String speciality){
+        return studentRepository.getStudentBySpeciality(speciality);
+    }
+    @Override
     public Student updateStudent(Student student) {
         return null;
     }

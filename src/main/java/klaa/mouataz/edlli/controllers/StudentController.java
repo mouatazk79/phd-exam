@@ -30,6 +30,14 @@ public class StudentController {
     public void deleteStudent(@PathVariable("id") Integer id){
         studentService.deleteById(id);
     }
+    @GetMapping("/all/{speciality}")
+    public List<Student> getStudentBySpeciality(@PathVariable("speciality") String speciality){
+        return studentService.getStudentBySpeciality(speciality);
+    }
+//    @GetMapping("/all/{speciality}")
+//    public List<Student> getLevel3Students(@PathVariable("speciality") String speciality){
+//        return s;
+//    }
 
 
 }

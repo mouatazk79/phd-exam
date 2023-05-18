@@ -31,4 +31,6 @@ public class Enseignant {
     private Set<Module> modules=new HashSet<>();
     @OneToOne(mappedBy = "enseignant")
     private User user;
+    @OneToMany(mappedBy = "enseignant")
+    private Set<Message> messages;
 }

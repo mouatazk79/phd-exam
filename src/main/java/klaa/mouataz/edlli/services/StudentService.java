@@ -12,4 +12,5 @@ public interface StudentService {
     Student save(StudentRequest studentRequest);
     void deleteById(Integer id);
     Student updateStudent(Student student);
+     List<Student> getStudentBySpeciality(String speciality);
 }
