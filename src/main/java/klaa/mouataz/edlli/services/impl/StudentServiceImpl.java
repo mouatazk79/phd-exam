@@ -37,6 +37,7 @@ public class StudentServiceImpl implements StudentService {
                 .firstNameArabic(studentRequest.getFirstNameArabic())
                 .lastNameArabic(studentRequest.getLastNameArabic())
                 .code(UUID.randomUUID())
+                .speciality(studentRequest.getSpeciality())
                 .gender(studentRequest.getGender())
                 .number(studentRequest.getNumber())
                 .user(studentRequest.getUser())
