@@ -55,6 +55,7 @@ public class StudentServiceImpl implements StudentService {
     }
     @Override
     public Student updateStudent(Student student) {
-        return null;
+
+        return studentRepository.save(student);
     }
 }

@@ -45,6 +45,6 @@ public class CFDServiceImpl implements CFDService {
 
     @Override
     public CFD updateCFD(CFD cfd) {
-        return null;
+        return cfdRepository.save(cfd);
     }
 }

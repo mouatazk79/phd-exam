@@ -46,6 +46,6 @@ public class VDoyenServiceImpl implements VDoyenService {
 
     @Override
     public VDoyen updateVDoyen(VDoyen vDoyen) {
-        return null;
+        return vDoyenRepository.save(vDoyen);
     }
 }

@@ -46,6 +46,6 @@ public class EnseignantServiceImpl implements EnseignantService {
 
     @Override
     public Enseignant updateEnseignant(Enseignant enseignant) {
-        return null;
+        return enseignantRepository.save(enseignant);
     }
 }

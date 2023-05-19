@@ -47,6 +47,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin updateAdmin(Admin admin) {
-        return null;
+        return adminRepository.save(admin);
     }
 }
