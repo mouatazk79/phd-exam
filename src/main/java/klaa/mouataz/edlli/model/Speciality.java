@@ -20,9 +20,9 @@ public class Speciality {
     @GeneratedValue
     private Integer id;
     private String name;
-    @OneToMany(mappedBy = "speciality")
-    private Set<Student> students = new HashSet<>();
-    @OneToMany(mappedBy = "speciality")
-    private Set<Module> modules = new HashSet<>();
+//    @OneToMany(mappedBy = "speciality")
+//    private Set<Student> students = new HashSet<>();
+//    @OneToMany(mappedBy = "speciality")
+//    private Set<Module> modules = new HashSet<>();
 
 }
