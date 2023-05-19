@@ -2,5 +2,10 @@ package klaa.mouataz.edlli.enumerations;
 
 public enum Role {
   USER,
-  ADMIN
+  ADMIN,
+  ENSEIGNANT,
+  STUDENT,
+  VCDOYEN,
+  CDG
+
 }
