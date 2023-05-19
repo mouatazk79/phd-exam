@@ -15,7 +15,7 @@ public class ModuleController {
     public List<Module> getAllModules(){
         return moduleService.getAll();
     }
-    @GetMapping("/student/{id}")
+    @GetMapping("/module/{id}")
     public Module getModule(@PathVariable("id")Integer id){
         return moduleService.getById(id);
     }
