@@ -21,6 +21,7 @@ public class News {
     private Integer id;
     private String title;
     private String description;
+    private String url;
     private LocalDate date;
     @Enumerated(EnumType.STRING)
     private NewsType type;
