@@ -2,12 +2,14 @@ package klaa.mouataz.edlli.controllers;
 
 import klaa.mouataz.edlli.dto.StaffRequest;
 import klaa.mouataz.edlli.model.Enseignant;
+import klaa.mouataz.edlli.model.Message;
 import klaa.mouataz.edlli.model.Module;
 import klaa.mouataz.edlli.services.EnseignantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,10 +38,16 @@ public class EnseignantController {
         enseignant.setId(id);
         return enseignantService.updateEnseignant(enseignant);
     }
-    @PutMapping("/addmodule/{id}")
-    public Enseignant addModuleEnseignant(@PathVariable("id") Integer id,@RequestBody Module module){
+    @PatchMapping("/addmodule/{id}")
+    public Enseignant addModuleEnseignant(@PathVariable("id") Integer id, @RequestBody Set<Module> modules){
         Enseignant enseignant=enseignantService.getById(id);
-        enseignant.getModules().add(module);
+        enseignant.getModules().addAll(modules);
+        return enseignantService.updateEnseignant(enseignant);
+    }
+    @PatchMapping("/addmessage/{id}")
+    public Enseignant addMessageEnseignant(@PathVariable("id") Integer id, @RequestBody Message message){
+        Enseignant enseignant=enseignantService.getById(id);
+        enseignant.getMessages().add(message);
         return enseignantService.updateEnseignant(enseignant);
     }
 
