@@ -1,5 +1,6 @@
 package klaa.mouataz.edlli.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import klaa.mouataz.edlli.enumerations.Gender;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,7 @@ public class Enseignant {
     private Set<Module> modules=new HashSet<>();
     @OneToOne(mappedBy = "enseignant")
     private User user;
+    @JsonIgnore
     @OneToMany(mappedBy = "enseignant")
     private Set<Message> messages;
 }
