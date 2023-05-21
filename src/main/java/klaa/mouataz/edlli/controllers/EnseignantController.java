@@ -48,9 +48,9 @@ public class EnseignantController {
     }
     @PatchMapping("/addmessage/{id}")
     public Enseignant addMessageEnseignant(@PathVariable("id") Integer id, @RequestBody Message message){
-        Enseignant enseignant=enseignantService.getById(id);
-        message.setEnseignant(enseignant);
+        message.setEnseignant(enseignantService.getById(id));
         messageService.save(message);
+        Enseignant enseignant=enseignantService.getById(id);
         enseignant.getMessages().add(message);
         return enseignantService.updateEnseignant(enseignant);
     }
