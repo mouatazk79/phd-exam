@@ -5,6 +5,7 @@ import klaa.mouataz.edlli.model.Enseignant;
 import klaa.mouataz.edlli.model.Message;
 import klaa.mouataz.edlli.model.Module;
 import klaa.mouataz.edlli.services.EnseignantService;
+import klaa.mouataz.edlli.services.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.Set;
 @RequestMapping("/api/v1/enseignants")
 public class EnseignantController {
     private final EnseignantService enseignantService;
+    private final MessageService messageService;
 
     @GetMapping
     public List<Enseignant> getEnseignants(){
@@ -46,6 +48,7 @@ public class EnseignantController {
     }
     @PatchMapping("/addmessage/{id}")
     public Enseignant addMessageEnseignant(@PathVariable("id") Integer id, @RequestBody Message message){
+        messageService.save(message);
         Enseignant enseignant=enseignantService.getById(id);
         enseignant.getMessages().add(message);
         return enseignantService.updateEnseignant(enseignant);
