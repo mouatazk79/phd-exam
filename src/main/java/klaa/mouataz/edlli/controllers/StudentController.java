@@ -1,7 +1,6 @@
 package klaa.mouataz.edlli.controllers;
 
 import klaa.mouataz.edlli.dto.StudentRequest;
-import klaa.mouataz.edlli.model.Note;
 import klaa.mouataz.edlli.model.Student;
 import klaa.mouataz.edlli.services.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -34,10 +33,6 @@ public class StudentController {
     public List<Student> getStudentBySpeciality(@PathVariable("speciality") String speciality){
         return studentService.getStudentBySpeciality(speciality);
     }
-//    @GetMapping("/all/{speciality}")
-//    public List<Student> getLevel3Students(@PathVariable("speciality") String speciality){
-//        return s;
-//    }
 
 
 }

@@ -52,7 +52,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> getStudentBySpeciality(String speciality){
-        return studentRepository.getStudentBySpeciality(speciality);
+        return studentRepository.findBySpecialityName(speciality);
     }
     @Override
     public Student updateStudent(Student student) {
