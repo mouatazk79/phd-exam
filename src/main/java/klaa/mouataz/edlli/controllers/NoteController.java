@@ -49,8 +49,12 @@ public class NoteController {
 public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
         note.setId(id);
         float n1=Float.parseFloat(noteService.getById(id).getNote1());
+        note.setNote1(String.valueOf(n1));
         float n2=Float.parseFloat(note.getNote2());
+        note.setNote2(String.valueOf(n2));
         float diff=n1-n2;
+        note.setEnseignant1(noteService.getById(id).getEnseignant1());
+        note.setEnseignant2(noteService.getById(id).getEnseignant2());
         if(diff>3 || diff<(-3) ){
             note.setThereIsDifference(true);
             note.setNoteFinale(null);
