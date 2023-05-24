@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,9 +40,17 @@ public class NoteController {
 //        List<NoteCSVRecord> noteCSVRecords= NoteCSVService.convertCSV(file);
 //        noteCSVRecords.forEach(noteCSVRecord -> noteService.save(Note.builder().id(noteCSVRecord.getId()).note1(noteCSVRecord.getNote1()).note2(noteCSVRecord.getNote2()).note3(noteCSVRecord.getNote3()).build()));
 //    }
+@PutMapping("/update/{id}")
+public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
+        note.setId(id);
+    return noteService.updateNote(note);
+}
     @DeleteMapping("/delete/{id}")
     public void deleteNote(@PathVariable("id")Integer id){
         noteService.deleteById(id);
     }
-
+    @GetMapping("/all/student/{id}")
+    public List<Note> getNoteByStudent(@PathVariable("id") UUID id){
+        return noteService.findAllByStudentCode(id);
+    }
 }

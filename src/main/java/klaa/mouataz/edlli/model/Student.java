@@ -32,6 +32,7 @@ public class Student {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String number;
+    private float moyen;
     @OneToOne(mappedBy = "student")
     private User user;
     @ManyToOne
