@@ -3,9 +3,8 @@ package klaa.mouataz.edlli.controllers;
 import jakarta.transaction.Transactional;
 import klaa.mouataz.edlli.model.Note;
 import klaa.mouataz.edlli.model.NoteCSVRecord;
-import klaa.mouataz.edlli.services.NoteCSVService;
-import klaa.mouataz.edlli.services.NoteService;
-import klaa.mouataz.edlli.services.UserCSVService;
+import klaa.mouataz.edlli.repos.StudentRepository;
+import klaa.mouataz.edlli.services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +20,8 @@ import java.util.UUID;
 @RequestMapping("/api/v1/notes")
 public class NoteController {
     private final NoteService noteService;
+    private final StudentRepository studentRepository;
+    private final ModuleService moduleService;
     private final NoteCSVService noteCSVService;
     @GetMapping
     public List<Note> getNotes(){
@@ -30,8 +31,10 @@ public class NoteController {
     public Note getNote(@PathVariable("id")Integer id){
         return noteService.getById(id);
     }
-    @PostMapping("/add")
-    public Note addNote(@RequestBody Note note){
+    @PostMapping("/add/{moduleid}/{studentid}")
+    public Note addNote(@PathVariable("moduleid")Integer moduleid,@PathVariable("studentid")UUID studentid,@RequestBody Note note){
+        note.setModule(moduleService.getById(moduleid));
+        note.setStudent(studentRepository.findByCode(studentid));
         return noteService.save(note);
     }
 //    @PostMapping("/add/csv")
