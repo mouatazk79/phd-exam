@@ -54,7 +54,7 @@ public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
         note.setNote2(String.valueOf(n2));
         float diff=n1-n2;
         note.setEnseignant1(noteService.getById(id).getEnseignant1());
-        note.setEnseignant2(noteService.getById(id).getEnseignant2());
+        note.setEnseignant2(note.getEnseignant2());
         if(diff>=3 || diff<=(-3) ){
             note.setThereIsDifference(true);
             note.setNoteFinale(null);
@@ -76,7 +76,7 @@ public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
         note.setNoteFinale(String.valueOf(Float.max(Float.max(n1,n2),n3)));
         note.setEnseignant1(noteService.getById(id).getEnseignant1());
         note.setEnseignant2(noteService.getById(id).getEnseignant2());
-        note.setEnseignant3(noteService.getById(id).getEnseignant3());
+        note.setEnseignant3(note.getEnseignant3());
         note.setThereIsDifference(true);
 
         return noteService.updateNote(note);
