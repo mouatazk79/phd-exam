@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 
 public interface CFDRepository extends JpaRepository<CFD,Integer> {
     CFD findCFDById(Integer id);
+    CFD  findByUser_Email(String email);
 }

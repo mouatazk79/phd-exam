@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VDoyenRepository extends JpaRepository<VDoyen,Integer> {
     VDoyen findVDoyenById(Integer id);
+    VDoyen findByUser_Email(String email);
 }

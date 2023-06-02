@@ -26,9 +26,7 @@ public class AuthenticationController {
     return ResponseEntity.ok(service.register(request));
   }
   @PostMapping("/authenticate")
-  public ResponseEntity<AuthenticationResponse> authenticate(
-      @RequestBody AuthenticationRequest request,
-      HttpServletRequest httpServletRequest
+  public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request, HttpServletRequest httpServletRequest
   ) {
 //    String userRole= String.valueOf(service.authenticate(request));
 //    System.out.println("===================================="+userRole);
