@@ -6,6 +6,6 @@ public enum Role {
   ENSEIGNANT,
   STUDENT,
   VCDOYEN,
-  CDG
+  CFD
 
 }

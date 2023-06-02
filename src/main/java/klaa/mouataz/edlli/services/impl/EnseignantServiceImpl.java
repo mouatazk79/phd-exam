@@ -34,6 +34,7 @@ public class EnseignantServiceImpl implements EnseignantService {
                 .gender(staffRequest.getGender())
                 .dob(staffRequest.getDob())
                 .number(staffRequest.getNumber())
+                .user(staffRequest.getUser())
                 .build();
 
         return enseignantRepository.save(enseignant);
