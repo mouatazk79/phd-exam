@@ -59,7 +59,7 @@ public class EnseignantController {
     }
     @GetMapping("/enseignant/byuser/{id}")
     public Enseignant getEnseignantByUserid(@PathVariable("id")Integer id){
-        return enseignantRepository.findByUser_Id(id);
+        return enseignantRepository.findByUserId(id);
     }
 
 }
