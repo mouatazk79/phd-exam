@@ -64,15 +64,55 @@ public class AuthenticationService {
     String number;
     if(user.getRole().equals(Role.ADMIN)){
      Admin admin= adminRepository.findByUser_Email(user.getEmail());
-
+      var jwtToken = jwtService.generateToken(user);
+      revokeAllUserTokens(user);
+      saveUserToken(user, jwtToken);
+      return AuthenticationResponse.builder()
+              .role(user.getRole())
+              .id(user.getId())
+              .token(jwtToken)
+              .build();
     } else if (user.getRole().equals(Role.CFD)) {
       CFD cfd=cfdRepository.findByUser_Email(user.getEmail());
+      var jwtToken = jwtService.generateToken(user);
+      revokeAllUserTokens(user);
+      saveUserToken(user, jwtToken);
+      return AuthenticationResponse.builder()
+              .role(user.getRole())
+              .id(user.getId())
+              .token(jwtToken)
+              .build();
     } else if (user.getRole().equals(Role.STUDENT)) {
       Student student=studentRepository.findByUser_Email(user.getEmail());
+      var jwtToken = jwtService.generateToken(user);
+      revokeAllUserTokens(user);
+      saveUserToken(user, jwtToken);
+      return AuthenticationResponse.builder()
+              .role(user.getRole())
+              .id(user.getId())
+              .token(jwtToken)
+              .build();
     } else if (user.getRole().equals(Role.ENSEIGNANT)) {
       Enseignant enseignant=enseignantRepository.findByUser_Email(user.getEmail());
+      var jwtToken = jwtService.generateToken(user);
+      revokeAllUserTokens(user);
+      saveUserToken(user, jwtToken);
+      return AuthenticationResponse.builder()
+              .role(user.getRole())
+              .enseignant(enseignant)
+              .id(user.getId())
+              .token(jwtToken)
+              .build();
     } else if (user.getRole().equals(Role.VCDOYEN)) {
       VDoyen vDoyen=vDoyenRepository.findByUser_Email(user.getEmail());
+      var jwtToken = jwtService.generateToken(user);
+      revokeAllUserTokens(user);
+      saveUserToken(user, jwtToken);
+      return AuthenticationResponse.builder()
+              .role(user.getRole())
+              .id(user.getId())
+              .token(jwtToken)
+              .build();
     }
     var jwtToken = jwtService.generateToken(user);
     revokeAllUserTokens(user);

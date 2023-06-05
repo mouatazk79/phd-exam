@@ -31,6 +31,7 @@ public class Enseignant {
     @OneToMany
     private Set<Module> modules=new HashSet<>();
     @OneToOne(mappedBy = "enseignant")
+    @PrimaryKeyJoinColumn
     private User user;
     @JsonIgnore
     @OneToMany(mappedBy = "enseignant")
