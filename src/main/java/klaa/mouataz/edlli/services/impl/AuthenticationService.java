@@ -65,7 +65,7 @@ public class AuthenticationService {
     if(user.getRole().equals(Role.ADMIN)){
      Admin admin= adminRepository.findByUser_Email(user.getEmail());
 
-    } else if (user.getRole().equals(Role.CDG)) {
+    } else if (user.getRole().equals(Role.CFD)) {
       CFD cfd=cfdRepository.findByUser_Email(user.getEmail());
     } else if (user.getRole().equals(Role.STUDENT)) {
       Student student=studentRepository.findByUser_Email(user.getEmail());

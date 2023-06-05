@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface AdminRepository extends JpaRepository<Admin,Integer> {
     Admin findAdminById(Integer id);
     Admin findByUser_Email(String email);
+    Admin findByUser_Id(Integer id);
 }
