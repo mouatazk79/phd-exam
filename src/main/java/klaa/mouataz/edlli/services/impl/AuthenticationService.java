@@ -57,37 +57,40 @@ public class AuthenticationService {
     );
     var user = repository.findByEmail(request.getEmail())
         .orElseThrow();
-    Admin admin = null;
-    Student student;
-    Enseignant enseignant = null;
-    VDoyen vDoyen;
+    String fName;
+    String lName;
+    LocalDate dob;
+    Gender gender;
     String number;
-    CFD cfd = null;
-    if(user.getRole().equals(Role.ADMIN)){
-      admin= adminRepository.findByUser_Email(user.getEmail());
+    Admin admin= adminRepository.findByUser_Email(user.getEmail());
+    CFD cfd=cfdRepository.findByUser_Email(user.getEmail());
+    Student student=studentRepository.findByUser_Email(user.getEmail());
+    Enseignant enseignant=enseignantRepository.findByUser_Email(user.getEmail());
+    VDoyen vDoyen=vDoyenRepository.findByUser_Email(user.getEmail());
 
-    } else if (user.getRole().equals(Role.CFD)) {
-       cfd=cfdRepository.findByUser_Email(user.getEmail());
 
-    } else if (user.getRole().equals(Role.STUDENT)) {
-       student=studentRepository.findByUser_Email(user.getEmail());
-
-    } else if (user.getRole().equals(Role.ENSEIGNANT)) {
-       enseignant=enseignantRepository.findByUser_Email(user.getEmail());
-
-    } else if (user.getRole().equals(Role.VCDOYEN)) {
-       vDoyen=vDoyenRepository.findByUser_Email(user.getEmail());
-
-    }
+//    if(user.getRole().equals(Role.ADMIN)){
+//     Admin admin= adminRepository.findByUser_Email(user.getEmail());
+//
+//    } else if (user.getRole().equals(Role.CFD)) {
+//      CFD cfd=cfdRepository.findByUser_Email(user.getEmail());
+//
+//    } else if (user.getRole().equals(Role.STUDENT)) {
+//      Student student=studentRepository.findByUser_Email(user.getEmail());
+//
+//    } else if (user.getRole().equals(Role.ENSEIGNANT)) {
+//      Enseignant enseignant=enseignantRepository.findByUser_Email(user.getEmail());
+//
+//    } else if (user.getRole().equals(Role.VCDOYEN)) {
+//      VDoyen vDoyen=vDoyenRepository.findByUser_Email(user.getEmail());
+//
+//    }
       var jwtToken = jwtService.generateToken(user);
       revokeAllUserTokens(user);
       saveUserToken(user, jwtToken);
       return AuthenticationResponse.builder()
               .role(user.getRole())
               .id(user.getId())
-              .admin(admin)
-              .cfd(cfd)
-              .enseignant(enseignant)
               .token(jwtToken)
               .build();
 
