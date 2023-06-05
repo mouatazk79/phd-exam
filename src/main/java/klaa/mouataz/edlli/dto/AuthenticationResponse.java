@@ -20,7 +20,6 @@ public class AuthenticationResponse {
   private VDoyen vDoyen;
   private Enseignant enseignant;
   private CFD cfd;
-
   private Integer id;
 
 

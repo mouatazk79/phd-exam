@@ -57,72 +57,40 @@ public class AuthenticationService {
     );
     var user = repository.findByEmail(request.getEmail())
         .orElseThrow();
-    String fName;
-    String lName;
-    LocalDate dob;
-    Gender gender;
+    Admin admin = null;
+    Student student;
+    Enseignant enseignant = null;
+    VDoyen vDoyen;
     String number;
+    CFD cfd = null;
     if(user.getRole().equals(Role.ADMIN)){
-     Admin admin= adminRepository.findByUser_Email(user.getEmail());
-      var jwtToken = jwtService.generateToken(user);
-      revokeAllUserTokens(user);
-      saveUserToken(user, jwtToken);
-      return AuthenticationResponse.builder()
-              .role(user.getRole())
-              .id(user.getId())
-              .token(jwtToken)
-              .build();
+      admin= adminRepository.findByUser_Email(user.getEmail());
+
     } else if (user.getRole().equals(Role.CFD)) {
-      CFD cfd=cfdRepository.findByUser_Email(user.getEmail());
-      var jwtToken = jwtService.generateToken(user);
-      revokeAllUserTokens(user);
-      saveUserToken(user, jwtToken);
-      return AuthenticationResponse.builder()
-              .role(user.getRole())
-              .id(user.getId())
-              .token(jwtToken)
-              .build();
+       cfd=cfdRepository.findByUser_Email(user.getEmail());
+
     } else if (user.getRole().equals(Role.STUDENT)) {
-      Student student=studentRepository.findByUser_Email(user.getEmail());
-      var jwtToken = jwtService.generateToken(user);
-      revokeAllUserTokens(user);
-      saveUserToken(user, jwtToken);
-      return AuthenticationResponse.builder()
-              .role(user.getRole())
-              .id(user.getId())
-              .token(jwtToken)
-              .build();
+       student=studentRepository.findByUser_Email(user.getEmail());
+
     } else if (user.getRole().equals(Role.ENSEIGNANT)) {
-      Enseignant enseignant=enseignantRepository.findByUser_Email(user.getEmail());
-      var jwtToken = jwtService.generateToken(user);
-      revokeAllUserTokens(user);
-      saveUserToken(user, jwtToken);
-      return AuthenticationResponse.builder()
-              .role(user.getRole())
-              .enseignant(enseignant)
-              .id(user.getId())
-              .token(jwtToken)
-              .build();
+       enseignant=enseignantRepository.findByUser_Email(user.getEmail());
+
     } else if (user.getRole().equals(Role.VCDOYEN)) {
-      VDoyen vDoyen=vDoyenRepository.findByUser_Email(user.getEmail());
-      var jwtToken = jwtService.generateToken(user);
-      revokeAllUserTokens(user);
-      saveUserToken(user, jwtToken);
-      return AuthenticationResponse.builder()
-              .role(user.getRole())
-              .id(user.getId())
-              .token(jwtToken)
-              .build();
-    }else {
-      var jwtToken = jwtService.generateToken(user);
-      revokeAllUserTokens(user);
-      saveUserToken(user, jwtToken);
-      return AuthenticationResponse.builder()
-              .role(user.getRole())
-              .id(user.getId())
-              .token(jwtToken)
-              .build();
+       vDoyen=vDoyenRepository.findByUser_Email(user.getEmail());
+
     }
+      var jwtToken = jwtService.generateToken(user);
+      revokeAllUserTokens(user);
+      saveUserToken(user, jwtToken);
+      return AuthenticationResponse.builder()
+              .role(user.getRole())
+              .id(user.getId())
+              .admin(admin)
+              .cfd(cfd)
+              .enseignant(enseignant)
+              .token(jwtToken)
+              .build();
+
   }
 
   private void saveUserToken(User user, String jwtToken) {
