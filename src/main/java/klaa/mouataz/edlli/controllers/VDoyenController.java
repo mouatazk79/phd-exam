@@ -1,7 +1,9 @@
 package klaa.mouataz.edlli.controllers;
 
 import klaa.mouataz.edlli.dto.StaffRequest;
+import klaa.mouataz.edlli.model.Student;
 import klaa.mouataz.edlli.model.VDoyen;
+import klaa.mouataz.edlli.repos.VDoyenRepository;
 import klaa.mouataz.edlli.services.VDoyenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/v1/VDoyen")
 public class VDoyenController {
     private final VDoyenService vDoyenService;
+    private final VDoyenRepository vDoyenRepository;
     @GetMapping
     public List<VDoyen> getVDoyens(){
         return vDoyenService.getAll();
@@ -33,5 +36,9 @@ public class VDoyenController {
     public VDoyen updateVDoyen(@PathVariable("id") Integer id,@RequestBody VDoyen vDoyen){
         vDoyen.setId(id);
         return vDoyenService.updateVDoyen(vDoyen);
+    }
+    @GetMapping("/vdoyen/byuser/{id}")
+    public VDoyen getVDoyenByUserid(@PathVariable("id")Integer id){
+        return vDoyenRepository.findByUid(id);
     }
 }

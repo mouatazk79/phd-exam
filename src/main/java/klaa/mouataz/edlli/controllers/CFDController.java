@@ -2,6 +2,8 @@ package klaa.mouataz.edlli.controllers;
 
 import klaa.mouataz.edlli.dto.StaffRequest;
 import klaa.mouataz.edlli.model.CFD;
+import klaa.mouataz.edlli.model.Enseignant;
+import klaa.mouataz.edlli.repos.CFDRepository;
 import klaa.mouataz.edlli.services.CFDService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/v1/CFD")
 public class CFDController {
     private final CFDService cfdService;
+    private final CFDRepository cfdRepository;
     @GetMapping
     public List<CFD> getCFDs(){
         return cfdService.getAll();
@@ -33,5 +36,9 @@ public class CFDController {
     public CFD updateCFD(@PathVariable("id") Integer id,@RequestBody CFD cfd){
         cfd.setId(id);
         return cfdService.updateCFD(cfd);
+    }
+    @GetMapping("/cfd/byuser/{id}")
+    public CFD getCFDByUserid(@PathVariable("id")Integer id){
+        return cfdRepository.findByUid(id);
     }
 }

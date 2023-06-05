@@ -28,6 +28,7 @@ public class CFDServiceImpl implements CFDService {
     public CFD save(StaffRequest staffRequest) {
         userService.save(staffRequest.getUser());
         CFD cfd=CFD.builder()
+                .uid(staffRequest.getUser().getId())
                 .firstName(staffRequest.getFirstName())
                 .lastName(staffRequest.getLastName())
                 .gender(staffRequest.getGender())

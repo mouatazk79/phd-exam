@@ -31,8 +31,10 @@ public class StudentServiceImpl implements StudentService {
     public Student save(StudentRequest studentRequest) {
         userService.save(studentRequest.getUser());
         Student newStudent=Student.builder().
+
                 firstName(studentRequest.getFirstName())
                 .lastName(studentRequest.getLastName())
+                .uid(studentRequest.getUser().getId())
                 .dob(studentRequest.getDob())
                 .firstNameArabic(studentRequest.getFirstNameArabic())
                 .lastNameArabic(studentRequest.getLastNameArabic())

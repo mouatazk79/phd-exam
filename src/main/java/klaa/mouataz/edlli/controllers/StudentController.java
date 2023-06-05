@@ -1,7 +1,9 @@
 package klaa.mouataz.edlli.controllers;
 
 import klaa.mouataz.edlli.dto.StudentRequest;
+import klaa.mouataz.edlli.model.CFD;
 import klaa.mouataz.edlli.model.Student;
+import klaa.mouataz.edlli.repos.StudentRepository;
 import klaa.mouataz.edlli.services.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/v1/students")
 public class StudentController {
     private final StudentService studentService;
+    private final StudentRepository studentRepository;
     @GetMapping
     public List<Student> getAllStudents(){
         return studentService.getAll();
@@ -33,6 +36,9 @@ public class StudentController {
     public List<Student> getStudentBySpeciality(@PathVariable("speciality") String speciality){
         return studentService.getStudentBySpeciality(speciality);
     }
-
+    @GetMapping("/student/byuser/{id}")
+    public Student getStudentByUserid(@PathVariable("id")Integer id){
+        return studentRepository.findByUid(id);
+    }
 
 }

@@ -29,6 +29,7 @@ public class VDoyenServiceImpl implements VDoyenService {
     public VDoyen save(StaffRequest staffRequest) {
         userService.save(staffRequest.getUser());
         VDoyen vDoyen=VDoyen.builder()
+                .uid(staffRequest.getUser().getId())
                 .firstName(staffRequest.getFirstName())
                 .lastName(staffRequest.getLastName())
                 .gender(staffRequest.getGender())
