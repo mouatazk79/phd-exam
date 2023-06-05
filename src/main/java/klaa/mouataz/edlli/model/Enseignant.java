@@ -22,6 +22,7 @@ public class Enseignant {
     @Id
     @GeneratedValue
     private Integer id;
+    private Integer uid;
     private String firstName;
     private String lastName;
     private LocalDate dob;
@@ -31,7 +32,6 @@ public class Enseignant {
     @OneToMany
     private Set<Module> modules=new HashSet<>();
     @OneToOne(mappedBy = "enseignant")
-    @PrimaryKeyJoinColumn
     private User user;
     @JsonIgnore
     @OneToMany(mappedBy = "enseignant")

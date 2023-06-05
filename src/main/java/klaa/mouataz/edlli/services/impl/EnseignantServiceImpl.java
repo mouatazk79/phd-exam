@@ -29,6 +29,7 @@ public class EnseignantServiceImpl implements EnseignantService {
     public Enseignant save(StaffRequest staffRequest) {
         userService.save(staffRequest.getUser());
         Enseignant enseignant=Enseignant.builder()
+                .uid(staffRequest.getUser().getId())
                 .firstName(staffRequest.getFirstName())
                 .lastName(staffRequest.getLastName())
                 .gender(staffRequest.getGender())

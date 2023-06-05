@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 public interface EnseignantRepository extends JpaRepository<Enseignant,Integer> {
     Enseignant findEnseignantById(Integer id);
-    Enseignant  findByUser_Email(String email);
-    @Query("SELECT e FROM Enseignant e INNER JOIN User u WHERE u.id= :userId")
-    Enseignant findByUserId(@Param("userId") Integer userId);
+     Enseignant  findByUser_Email(String email);
+    Enseignant findByUid(Integer id);
 }

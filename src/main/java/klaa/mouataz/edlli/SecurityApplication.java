@@ -1,5 +1,9 @@
 package klaa.mouataz.edlli;
 
+import klaa.mouataz.edlli.model.Enseignant;
+import klaa.mouataz.edlli.repos.EnseignantRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -14,10 +18,12 @@ import java.util.Collections;
 
 
 @SpringBootApplication
+@RequiredArgsConstructor
 public class SecurityApplication {
-
 	public static void main(String[] args) {
+
 		SpringApplication.run(SecurityApplication.class, args);
+
 
 	}
 	@Bean

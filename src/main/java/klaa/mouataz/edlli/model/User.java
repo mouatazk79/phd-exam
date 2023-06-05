@@ -1,5 +1,6 @@
 package klaa.mouataz.edlli.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import klaa.mouataz.edlli.enumerations.Role;
 import klaa.mouataz.edlli.security.token.Token;
@@ -33,8 +34,10 @@ public class User implements UserDetails {
   @Enumerated(EnumType.STRING)
   private Role role;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "user")
   private List<Token> tokens;
+  @JsonIgnore
   @OneToMany(mappedBy = "user")
   private List <News> news;
   @OneToOne(cascade = CascadeType.ALL)

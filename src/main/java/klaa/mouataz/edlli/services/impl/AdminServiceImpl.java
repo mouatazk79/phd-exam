@@ -29,6 +29,7 @@ public class AdminServiceImpl implements AdminService {
     public Admin save(StaffRequest staffRequest) {
         userService.save(staffRequest.getUser());
         Admin newAdmin=Admin.builder()
+                .uid(staffRequest.getUser().getId())
                 .firstName(staffRequest.getFirstName())
                 .lastName(staffRequest.getLastName())
                 .gender(staffRequest.getGender())

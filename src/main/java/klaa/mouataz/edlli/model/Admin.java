@@ -19,6 +19,7 @@ public class Admin {
     @Id
     @GeneratedValue
     private Integer id;
+    private Integer uid;
     private String firstName;
     private String lastName;
     private LocalDate dob;
