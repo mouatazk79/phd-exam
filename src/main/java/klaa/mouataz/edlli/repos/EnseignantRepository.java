@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface EnseignantRepository extends JpaRepository<Enseignant,Integer> {
     Enseignant findEnseignantById(Integer id);
     Enseignant  findByUser_Email(String email);
-    Enseignant  findEnseignantByUser_Id(Integer integer);
+    Enseignant findByUserId(Integer userId);
 }
