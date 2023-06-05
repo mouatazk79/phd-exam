@@ -57,9 +57,9 @@ public class EnseignantController {
         return enseignantService.updateEnseignant(enseignant);
 
     }
-    @GetMapping("/enseignant/user/{id}")
+    @GetMapping("/enseignant/byuser/{id}")
     public Enseignant getEnseignantByUserid(@PathVariable("id")Integer id){
-        return enseignantRepository.findByUser_Id(id);
+        return enseignantRepository.findEnseignantByUser_Id(id);
     }
 
 }
