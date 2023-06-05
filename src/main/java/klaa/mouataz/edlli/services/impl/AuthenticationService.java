@@ -113,15 +113,16 @@ public class AuthenticationService {
               .id(user.getId())
               .token(jwtToken)
               .build();
+    }else {
+      var jwtToken = jwtService.generateToken(user);
+      revokeAllUserTokens(user);
+      saveUserToken(user, jwtToken);
+      return AuthenticationResponse.builder()
+              .role(user.getRole())
+              .id(user.getId())
+              .token(jwtToken)
+              .build();
     }
-    var jwtToken = jwtService.generateToken(user);
-    revokeAllUserTokens(user);
-    saveUserToken(user, jwtToken);
-    return AuthenticationResponse.builder()
-            .role(user.getRole())
-            .id(user.getId())
-        .token(jwtToken)
-        .build();
   }
 
   private void saveUserToken(User user, String jwtToken) {
