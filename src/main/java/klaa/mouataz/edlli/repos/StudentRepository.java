@@ -17,6 +17,7 @@ public interface StudentRepository extends JpaRepository<Student,Integer> {
     Student findByCode(UUID uuid);
     Student findByUser_Email(String email);
     Student findByUid(Integer id);
+    boolean existsByUserEmail(String email);
 
 
 //    @Query("SELECT  s.firstName ,s. FROM Student s INNER JOIN Note n ON s.studentcode =n.studentcode where n.thereIsDifference = true")

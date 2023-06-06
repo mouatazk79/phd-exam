@@ -2,6 +2,7 @@ package klaa.mouataz.edlli;
 
 import klaa.mouataz.edlli.model.Enseignant;
 import klaa.mouataz.edlli.repos.EnseignantRepository;
+import klaa.mouataz.edlli.repos.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +20,8 @@ import java.util.Collections;
 
 @SpringBootApplication
 @RequiredArgsConstructor
-public class SecurityApplication {
+public class SecurityApplication implements CommandLineRunner{
+	private final StudentRepository studentRepository;
 	public static void main(String[] args) {
 
 		SpringApplication.run(SecurityApplication.class, args);
@@ -41,4 +43,8 @@ public class SecurityApplication {
 	}
 
 
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println(studentRepository.existsByUserEmail("johnsmith@example.com"));
+	}
 }
