@@ -43,7 +43,7 @@ public class EnseignantController {
         return enseignantService.updateEnseignant(enseignant);
     }
     @PatchMapping("/addmodule/{id}")
-    public Enseignant addModuleEnseignant(@PathVariable("id") Integer id, @RequestBody Set<Module> modules){
+    public Enseignant addModuleEnseignant(@PathVariable("id") Integer id, @RequestBody List<Module> modules){
         Enseignant enseignant=enseignantService.getById(id);
         enseignant.getModules().addAll(modules);
         return enseignantService.updateEnseignant(enseignant);

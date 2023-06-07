@@ -3,7 +3,6 @@ package klaa.mouataz.edlli.controllers;
 import jakarta.transaction.Transactional;
 import klaa.mouataz.edlli.dto.StudentRequest;
 import klaa.mouataz.edlli.enumerations.Role;
-import klaa.mouataz.edlli.model.CFD;
 import klaa.mouataz.edlli.model.Student;
 import klaa.mouataz.edlli.model.StudentCSVRecord;
 import klaa.mouataz.edlli.model.User;

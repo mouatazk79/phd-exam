@@ -9,7 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -30,10 +32,10 @@ public class Enseignant {
     private Gender gender;
     private String number;
     @OneToMany
-    private Set<Module> modules=new HashSet<>();
+    private List<Module> modules=new ArrayList<>();
     @OneToOne(mappedBy = "enseignant")
     private User user;
     @JsonIgnore
     @OneToMany(mappedBy = "enseignant")
-    private Set<Message> messages;
+    private List<Message> messages;
 }

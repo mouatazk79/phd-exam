@@ -3,7 +3,6 @@ package klaa.mouataz.edlli.services.impl;
 import klaa.mouataz.edlli.dto.StudentRequest;
 import klaa.mouataz.edlli.model.Student;
 import klaa.mouataz.edlli.repos.StudentRepository;
-import klaa.mouataz.edlli.repos.UserRepository;
 import klaa.mouataz.edlli.services.StudentService;
 import klaa.mouataz.edlli.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +30,6 @@ public class StudentServiceImpl implements StudentService {
     public Student save(StudentRequest studentRequest) {
         userService.save(studentRequest.getUser());
         Student newStudent=Student.builder().
-
                 firstName(studentRequest.getFirstName())
                 .lastName(studentRequest.getLastName())
                 .uid(studentRequest.getUser().getId())
