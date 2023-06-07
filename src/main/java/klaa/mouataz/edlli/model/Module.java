@@ -25,4 +25,5 @@ public class Module {
     private Speciality speciality;
     @OneToMany(mappedBy = "module")
     private Set<Note> notes = new HashSet<>();
+
 }

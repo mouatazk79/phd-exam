@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 
 public interface SpecialityRepository extends JpaRepository<Speciality,Integer> {
     Speciality getSpecialityById(Integer id);
+    Speciality getSpecialityByName(String name);
 }

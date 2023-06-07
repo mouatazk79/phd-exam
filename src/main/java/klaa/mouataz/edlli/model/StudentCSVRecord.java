@@ -30,7 +30,7 @@ public class StudentCSVRecord {
     @CsvBindByName
     private String number;
     @CsvBindByName
-    private Speciality speciality;
+    private String speciality;
     @CsvBindByName
     private LocalDate dob;
 

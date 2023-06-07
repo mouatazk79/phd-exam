@@ -6,6 +6,7 @@ import klaa.mouataz.edlli.enumerations.Role;
 import klaa.mouataz.edlli.model.Student;
 import klaa.mouataz.edlli.model.StudentCSVRecord;
 import klaa.mouataz.edlli.model.User;
+import klaa.mouataz.edlli.repos.SpecialityRepository;
 import klaa.mouataz.edlli.repos.StudentRepository;
 import klaa.mouataz.edlli.repos.UserRepository;
 import klaa.mouataz.edlli.services.StudentService;
@@ -28,6 +29,7 @@ public class StudentController {
     private final UserCSVService userCSVService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final SpecialityRepository specialityRepository;
     @GetMapping
     public List<Student> getAllStudents(){
         return studentService.getAll();
@@ -57,7 +59,7 @@ public class StudentController {
                             .number(studentCSVRecord.getNumber())
                             .dob(studentCSVRecord.getDob())
                             .gender(studentCSVRecord.getGender())
-                            .speciality(studentCSVRecord.getSpeciality())
+                            .speciality(specialityRepository.getSpecialityByName(studentCSVRecord.getSpeciality()))
                             .build();
                     studentRepository.save(student);
                     User user = User.builder()
