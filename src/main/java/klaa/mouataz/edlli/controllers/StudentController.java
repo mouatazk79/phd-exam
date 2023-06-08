@@ -1,8 +1,6 @@
 package klaa.mouataz.edlli.controllers;
 
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
-import jakarta.transaction.Transactional;
+
 import klaa.mouataz.edlli.dto.StudentRequest;
 import klaa.mouataz.edlli.enumerations.Role;
 import klaa.mouataz.edlli.model.Student;
@@ -18,16 +16,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/students")
 public class StudentController {
+    private  final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final StudentService studentService;
     private final StudentRepository studentRepository;
     private final UserCSVService userCSVService;
@@ -51,55 +50,39 @@ public class StudentController {
     }
 
     @PostMapping("/add/csv")
-    public List<StudentCSVRecord> addStudentUsingCSV(@RequestParam("file") MultipartFile csvFile) {
-        try {
-            // Save the uploaded file to a temporary location
-            File file = saveUploadedFile(csvFile);
+    public void addStudentUsingCSV(@RequestParam("file") MultipartFile csvFile) throws IOException {
 
-            // Convert the CSV file to a list of StudentCSVRecord objects
-            List<StudentCSVRecord> studentCSVRecords = convertCSV(file);
+            File file = convertMultipartFileToFile(csvFile);
+            List<StudentCSVRecord> studentCSVRecords = userCSVService.convertCSV(file);
+            for (StudentCSVRecord studentCSVRecord : studentCSVRecords) {
+                System.out.println(studentCSVRecord);
+                if (!studentRepository.existsByUserEmail(studentCSVRecord.getEmail())) {
+                    Student student=Student.builder()
+                            .uid(studentCSVRecord.getId())
+                            .firstName(studentCSVRecord.getFirstName())
+                            .firstNameArabic(studentCSVRecord.getFirstNameArabic())
+                            .lastName(studentCSVRecord.getLastName())
+                            .lastNameArabic(studentCSVRecord.getLastNameArabic())
+                            .number(studentCSVRecord.getNumber())
+                            .code(UUID.randomUUID())
+                            .dob( LocalDate.parse(studentCSVRecord.getDob(),dtf))
+                            .gender(studentCSVRecord.getGender())
+                            .speciality(specialityRepository.getSpecialityByName(studentCSVRecord.getSpeciality()))
+                            .build();
+             //   System.out.println(student);
+                    studentRepository.save(student);
+                    User user = User.builder()
+                            .id(studentCSVRecord.getId())
+                            .email(studentCSVRecord.getEmail())
+                            .password(passwordEncoder.encode(String.valueOf(studentCSVRecord.getDob())))
+                            .role(Role.STUDENT)
+                            .student(student)
+                            .build();
+                    userRepository.save(user);
 
-            // Save the records to the database
-            saveToDatabase(studentCSVRecords);
+                }
+            }
 
-            return studentCSVRecords;
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle the exception and return an appropriate response
-        }
-//        try  {
-//            File file = convertMultipartFileToFile(csvFile);
-//
-//            List<StudentCSVRecord> studentCSVRecords = userCSVService.convertCSV(file);
-//            for (StudentCSVRecord studentCSVRecord : studentCSVRecords) {
-//                if (!studentRepository.existsByUserEmail(studentCSVRecord.getEmail())) {
-//                    Student student=Student.builder()
-//                            .firstName(studentCSVRecord.getFirstName())
-//                            .firstNameArabic(studentCSVRecord.getFirstNameArabic())
-//                            .lastName(studentCSVRecord.getLastName())
-//                            .lastNameArabic(studentCSVRecord.getLastNameArabic())
-//                            .number(studentCSVRecord.getNumber())
-//                            .dob(studentCSVRecord.getDob())
-//                            .gender(studentCSVRecord.getGender())
-//                            .speciality(specialityRepository.getSpecialityByName(studentCSVRecord.getSpeciality()))
-//                            .build();
-//                    studentRepository.save(student);
-//                    User user = User.builder()
-//                            .id(studentCSVRecord.getId())
-//                            .email(studentCSVRecord.getEmail())
-//                            .password(passwordEncoder.encode(String.valueOf(studentCSVRecord.getDob())))
-//                            .role(Role.STUDENT)
-//                            .student(student)
-//                            .build();
-//                    userRepository.save(user);
-//
-//                }
-//            }
-//        } catch (Exception e) {
-//
-//        }
-
-        return null;
     }
 
     @DeleteMapping("/delete/{id}")
@@ -117,58 +100,11 @@ public class StudentController {
         return studentRepository.findByUid(id);
     }
 
-    private File saveUploadedFile(MultipartFile multipartFile) throws IOException {
+    private File convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
         File file = new File(multipartFile.getOriginalFilename());
-        multipartFile.transferTo(file);
-        return file;
-    }
-
-    private List<StudentCSVRecord> convertCSV(File file) throws IOException {
-        FileReader reader = new FileReader(file);
-
-        CsvToBean<StudentCSVRecord> csvToBean = new CsvToBeanBuilder<StudentCSVRecord>(reader)
-                .withType(StudentCSVRecord.class)
-                .withIgnoreLeadingWhiteSpace(true)
-                .build();
-
-        List<StudentCSVRecord> studentCSVRecords = csvToBean.parse();
-
-        return studentCSVRecords;
-    }
-
-    private void saveToDatabase(List<StudentCSVRecord> studentCSVRecords) {
-        List<Student> students = new ArrayList<>();
-
-        for (StudentCSVRecord studentCSVRecord : studentCSVRecords) {
-            if (!studentRepository.existsByUserEmail(studentCSVRecord.getEmail())) {
-                Student student = Student.builder()
-                        .firstName(studentCSVRecord.getFirstName())
-                        .firstNameArabic(studentCSVRecord.getFirstNameArabic())
-                        .lastName(studentCSVRecord.getLastName())
-                        .lastNameArabic(studentCSVRecord.getLastNameArabic())
-                        .number(studentCSVRecord.getNumber())
-                        .dob(studentCSVRecord.getDob())
-                        .gender(studentCSVRecord.getGender())
-                        .speciality(specialityRepository.getSpecialityByName(studentCSVRecord.getSpeciality()))
-                        .build();
-                studentRepository.save(student);
-                User user = User.builder()
-                        .id(studentCSVRecord.getId())
-                        .email(studentCSVRecord.getEmail())
-                        .password(passwordEncoder.encode(String.valueOf(studentCSVRecord.getDob())))
-                        .role(Role.STUDENT)
-                        .student(student)
-                        .build();
-                userRepository.save(user);
-
-            }
-
-            studentRepository.saveAll(students);
+        try (OutputStream outputStream = new FileOutputStream(file)) {
+            outputStream.write(multipartFile.getBytes());
         }
-//    private File convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
-//        File file = File.createTempFile("temp", ".csv");
-//        multipartFile.transferTo(file);
-//        return file;
-//    }
+        return file;
     }
 }
