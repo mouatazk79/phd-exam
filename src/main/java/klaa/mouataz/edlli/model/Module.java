@@ -1,5 +1,6 @@
 package klaa.mouataz.edlli.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +28,7 @@ public class Module {
     private Speciality speciality;
     @OneToMany(mappedBy = "module")
     private Set<Note> notes = new HashSet<>();
-    @ManyToMany(mappedBy = "modules")
+    @ManyToMany(mappedBy = "modules",fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Enseignant> enseignants = new ArrayList<>();
 }

@@ -1,6 +1,8 @@
 package klaa.mouataz.edlli.controllers;
 
+import klaa.mouataz.edlli.model.Enseignant;
 import klaa.mouataz.edlli.model.StudentCSVRecord;
+import klaa.mouataz.edlli.repos.EnseignantRepository;
 import klaa.mouataz.edlli.services.StudentService;
 import klaa.mouataz.edlli.services.UserCSVService;
 import lombok.RequiredArgsConstructor;
@@ -16,18 +18,17 @@ import java.util.List;
 @RequestMapping("/api/v1/demo-controller")
 public class DemoController {
   private final UserCSVService userCSVService;
+  private final EnseignantRepository enseignantRepository;
+//
+//  @GetMapping("/list")
+//  public List<Enseignant> csv() {
+//return enseignantRepository.findAllWithModules();
+//  }
 
-  @PostMapping("/add/csv")
-  public void csv(@RequestParam("file") MultipartFile csvFile) {
-//    File file = convertMultipartFileToFile(csvFile);
-//    List<StudentCSVRecord> studentCSVRecords = userCSVService.convertCSV(file);
 
-  }
-
-
-  @GetMapping
-  public ResponseEntity<String> sayHello() {
-    return ResponseEntity.ok("Hello from secured endpoint");
-  }
+//  @GetMapping
+//  public ResponseEntity<String> sayHello() {
+//    return ResponseEntity.ok("Hello from secured endpoint");
+//  }
 
 }

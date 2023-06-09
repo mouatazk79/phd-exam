@@ -3,6 +3,7 @@ package klaa.mouataz.edlli.bootstrap;
 import jakarta.transaction.Transactional;
 import klaa.mouataz.edlli.model.StudentCSVRecord;
 import klaa.mouataz.edlli.model.User;
+import klaa.mouataz.edlli.repos.EnseignantRepository;
 import klaa.mouataz.edlli.repos.UserRepository;
 import klaa.mouataz.edlli.services.UserCSVService;
 import klaa.mouataz.edlli.services.UserService;
@@ -14,9 +15,14 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.util.List;
 
-//@Component
-//@RequiredArgsConstructor
-public class Data {//implements CommandLineRunner {
+@Component
+@RequiredArgsConstructor
+public class Data implements CommandLineRunner {
+    private final EnseignantRepository enseignantRepository;
+    @Override
+    public void run(String... args) throws Exception {
+     //   System.out.println(enseignantRepository.findAll());
+    }
 //    private final UserCSVService userCSVService;
 //    private final UserRepository userRepository;
 //    private final UserService userService;
