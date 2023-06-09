@@ -1,5 +1,6 @@
 package klaa.mouataz.edlli.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import klaa.mouataz.edlli.enumerations.Gender;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,7 @@ public class Student {
     private Gender gender;
     private String number;
     private float moyen;
+    @JsonIgnore
     @OneToOne(mappedBy = "student")
     private User user;
     @ManyToOne
