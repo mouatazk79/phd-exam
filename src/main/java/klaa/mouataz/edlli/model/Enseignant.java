@@ -38,6 +38,7 @@ public class Enseignant {
             inverseJoinColumns = @JoinColumn(name = "module_id")
     )
     private List<Module> modules = new ArrayList<>();
+    @JsonIgnore
     @OneToOne(mappedBy = "enseignant")
     private User user;
     @JsonIgnore
