@@ -15,18 +15,18 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NoteCSVRecord {
+//    @CsvBindByName
+//    private Integer id;
+//    @CsvBindByName
+//    private Integer module;
     @CsvBindByName
-    private Integer id;
+    private String code;
     @CsvBindByName
-    private Integer module;
-    @CsvBindByName
-    private UUID student;
-    @CsvBindByName
-    private String note1;
-    @CsvBindByName
-    private String note2;
-    @CsvBindByName
-    private String note3;
-    @CsvBindByName
-    private String noteFinale;
+    private String note;
+//    @CsvBindByName
+//    private String note2;
+//    @CsvBindByName
+//    private String note3;
+//    @CsvBindByName
+//    private String noteFinale;
 }

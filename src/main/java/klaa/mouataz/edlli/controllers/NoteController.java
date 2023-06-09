@@ -3,6 +3,7 @@ package klaa.mouataz.edlli.controllers;
 import jakarta.transaction.Transactional;
 import klaa.mouataz.edlli.model.Note;
 import klaa.mouataz.edlli.model.NoteCSVRecord;
+import klaa.mouataz.edlli.model.StudentCSVRecord;
 import klaa.mouataz.edlli.repos.NoteRepository;
 import klaa.mouataz.edlli.repos.StudentRepository;
 import klaa.mouataz.edlli.services.*;
@@ -11,8 +12,7 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +25,7 @@ public class NoteController {
     private final StudentRepository studentRepository;
     private final ModuleService moduleService;
     private final NoteCSVService noteCSVService;
+    private final EnseignantService enseignantService;
     @GetMapping
     public List<Note> getNotes(){
         return noteService.getAll();
@@ -100,5 +101,71 @@ public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
     public List<Note> getNoteByModule(@PathVariable("name") String name){
         return noteRepository.findByModule_NameAndThereIsDifferenceTrue(name);
     }
+    @PostMapping("/add/note1/csv/enseignant/{id}/module/{idm}")
+    public void addNote1UsingCSV(@PathVariable("id") Integer id,@PathVariable("idm")Integer idm,@RequestParam("file") MultipartFile csvFile) throws IOException {
+        File file = convertMultipartFileToFile(csvFile);
+        List<NoteCSVRecord> noteCSVRecords = noteCSVService.convertCSV(file);
+        for (NoteCSVRecord noteCSVRecord :noteCSVRecords
+             ) {
+          Note note=  Note.builder().
+            enseignant1(enseignantService.getById(id).getFirstName()+" "+enseignantService.getById(id).getLastName())
+                    .note1(noteCSVRecord.getNote())
+                  .module(moduleService.getById(idm))
+                    .student(studentRepository.findByCode(UUID.fromString(noteCSVRecord.getCode())))
+                    .build();
+          noteRepository.save(note);
+            System.out.println(noteCSVRecord);
 
+        }
+    }
+    @PostMapping("/add/note2/csv/enseignant/{id}/module/{idm}")
+    public void addNote2UsingCSV(@PathVariable("id") Integer id,@PathVariable("idm")Integer idm,@RequestParam("file") MultipartFile csvFile) throws IOException {
+        File file = convertMultipartFileToFile(csvFile);
+        List<NoteCSVRecord> noteCSVRecords = noteCSVService.convertCSV(file);
+        for (NoteCSVRecord noteCSVRecord :noteCSVRecords
+        ) {
+            Note note=noteRepository.findByModule_NameAndStudent_Code(moduleService.getById(idm).getName(),UUID.fromString(noteCSVRecord.getCode()));
+            note.setEnseignant2(enseignantService.getById(id).getFirstName()+" "+enseignantService.getById(id).getLastName());
+            note.setNote2(noteCSVRecord.getNote());
+            float note1=Integer.parseInt(note.getNote1());
+            float note2=Integer.parseInt(noteCSVRecord.getNote());
+            float diff=note1-note2;
+            if(diff>(3)||diff<(-3)){
+                note.setNoteFinale(null);
+                note.setThereIsDifference(true);
+            }else {
+                note.setThereIsDifference(false);
+                note.setNoteFinale(String.valueOf(Float.max(note1,note2)));
+            }
+            noteRepository.save(note);
+            //System.out.println(noteCSVRecord);
+
+        }
+    }
+    @PostMapping("/add/note3/csv/enseignant/{id}/module/{idm}")
+    public void addNote3UsingCSV(@PathVariable("id") Integer id,@PathVariable("idm")Integer idm,@RequestParam("file") MultipartFile csvFile) throws IOException {
+        File file = convertMultipartFileToFile(csvFile);
+        List<NoteCSVRecord> noteCSVRecords = noteCSVService.convertCSV(file);
+        for (NoteCSVRecord noteCSVRecord :noteCSVRecords
+        ) {
+            Note note=noteRepository.findByModule_NameAndStudent_Code(moduleService.getById(idm).getName(),UUID.fromString(noteCSVRecord.getCode()));
+            note.setEnseignant3(enseignantService.getById(id).getFirstName()+" "+enseignantService.getById(id).getLastName());
+            note.setNote3(noteCSVRecord.getNote());
+            float note1=Integer.parseInt(note.getNote1());
+            float note2=Integer.parseInt(note.getNote2());
+            float note3=Integer.parseInt(noteCSVRecord.getNote());
+            note.setNoteFinale(String.valueOf(Float.max(Float.max(note1,note2),note3)));
+            note.setThereIsDifference(true);
+            noteRepository.save(note);
+            //System.out.println(noteCSVRecord);
+
+        }
+    }
+    private File convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
+        File file = new File(multipartFile.getOriginalFilename());
+        try (OutputStream outputStream = new FileOutputStream(file)) {
+            outputStream.write(multipartFile.getBytes());
+        }
+        return file;
+    }
 }

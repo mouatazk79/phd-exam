@@ -14,4 +14,5 @@ public interface NoteRepository extends JpaRepository<Note,Integer> {
     Note findNoteById(Integer id);
     List<Note> findAllByStudentCode(UUID studentCode);
     List<Note> findByModule_NameAndThereIsDifferenceTrue(String moduleName);
+    Note findByModule_NameAndStudent_Code(String moduleName,UUID code);
 }
