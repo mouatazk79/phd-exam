@@ -85,6 +85,7 @@ public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
     public Note updateNote1(@PathVariable("id") Integer id,@RequestBody Note note){
         note.setId(id);
         note.setNote1(note.getNote1());
+        note.setEnseignant3(note.getEnseignant3());
         return noteService.updateNote(note);
     }
     @DeleteMapping("/delete/{id}")
