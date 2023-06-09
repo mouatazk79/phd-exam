@@ -31,8 +31,13 @@ public class Enseignant {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String number;
-    @OneToMany
-    private List<Module> modules=new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "enseignant_module",
+            joinColumns = @JoinColumn(name = "enseignant_id"),
+            inverseJoinColumns = @JoinColumn(name = "module_id")
+    )
+    private List<Module> modules = new ArrayList<>();
     @OneToOne(mappedBy = "enseignant")
     private User user;
     @JsonIgnore

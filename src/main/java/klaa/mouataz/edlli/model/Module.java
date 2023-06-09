@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -25,5 +27,6 @@ public class Module {
     private Speciality speciality;
     @OneToMany(mappedBy = "module")
     private Set<Note> notes = new HashSet<>();
-
+    @ManyToMany(mappedBy = "modules")
+    private List<Enseignant> enseignants = new ArrayList<>();
 }
