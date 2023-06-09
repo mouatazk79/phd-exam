@@ -41,7 +41,7 @@ public class Enseignant {
             joinColumns = @JoinColumn(name = "enseignant_id"),
             inverseJoinColumns = @JoinColumn(name = "module_id")
     )
-    @JsonManagedReference
+   // @JsonManagedReference
     private List<Module> modules = new ArrayList<>();
     @JsonIgnore
     @OneToOne(mappedBy = "enseignant")

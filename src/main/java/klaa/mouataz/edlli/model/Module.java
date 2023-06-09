@@ -29,6 +29,6 @@ public class Module {
     @OneToMany(mappedBy = "module")
     private Set<Note> notes = new HashSet<>();
     @ManyToMany(mappedBy = "modules",fetch = FetchType.LAZY)
-    @JsonBackReference
+  //  @JsonBackReference
     private List<Enseignant> enseignants = new ArrayList<>();
 }
