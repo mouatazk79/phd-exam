@@ -31,6 +31,7 @@ public class Enseignant {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String number;
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "enseignant_module",
