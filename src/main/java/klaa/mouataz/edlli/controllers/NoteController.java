@@ -81,6 +81,12 @@ public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
 
         return noteService.updateNote(note);
     }
+    @PatchMapping("/update/note1/{id}")
+    public Note updateNote1(@PathVariable("id") Integer id,@RequestBody Note note){
+        note.setId(id);
+        note.setNote1(note.getNote1());
+        return noteService.updateNote(note);
+    }
     @DeleteMapping("/delete/{id}")
     public void deleteNote(@PathVariable("id")Integer id){
         noteService.deleteById(id);

@@ -80,6 +80,8 @@ public class StudentController {
                             .build();
                     userRepository.save(user);
 
+                }else {
+                    System.out.println("none");
                 }
             }
 
