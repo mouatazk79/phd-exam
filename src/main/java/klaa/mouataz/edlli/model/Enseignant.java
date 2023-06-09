@@ -35,13 +35,7 @@ public class Enseignant {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String number;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "enseignant_module",
-            joinColumns = @JoinColumn(name = "enseignant_id"),
-            inverseJoinColumns = @JoinColumn(name = "module_id")
-    )
-   // @JsonManagedReference
+    @OneToMany(mappedBy = "enseignant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Module> modules = new ArrayList<>();
     @JsonIgnore
     @OneToOne(mappedBy = "enseignant")

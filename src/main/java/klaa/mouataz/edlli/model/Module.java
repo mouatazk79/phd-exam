@@ -28,7 +28,7 @@ public class Module {
     private Speciality speciality;
     @OneToMany(mappedBy = "module")
     private Set<Note> notes = new HashSet<>();
-    @ManyToMany(mappedBy = "modules",fetch = FetchType.LAZY)
-  //  @JsonBackReference
-    private List<Enseignant> enseignants = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "enseignant_id")
+    private Enseignant enseignant;
 }
