@@ -19,6 +19,7 @@ public class Note {
     @Id
     @GeneratedValue
     private Integer id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "module_id", referencedColumnName = "id")
     private Module module;

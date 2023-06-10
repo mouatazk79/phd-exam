@@ -42,13 +42,17 @@ public class NoteController {
         note.setStudent(studentRepository.findByCode(studentid));
         return noteService.save(note);
     }
-    @PatchMapping("/add/moyen/student/{id}")
+    @GetMapping("/add/moyen/student/{id}")
     public void addMoyenToStudent(@PathVariable("id")UUID id){
-         List<Note> notes=noteRepository.findByStudent_Code(id);
+         List<Note> notes=noteRepository.findAll();
+
          float total=0;
         for (Note note: notes
              ) {
-            total=total+Integer.parseInt(note.getNoteFinale());
+            if (note.getStudent().getCode().equals(id)){
+                total=total+Integer.parseInt(note.getNoteFinale());
+             //   System.out.println(note);
+            }
         }
         Student student=studentRepository.findByCode(id);
         student.setMoyen(total/notes.size());
