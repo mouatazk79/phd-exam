@@ -35,9 +35,10 @@ public class NoteController {
     public Note getNote(@PathVariable("id")Integer id){
         return noteService.getById(id);
     }
-    @PostMapping("/add/{moduleid}/{studentid}")
-    public Note addNote(@PathVariable("moduleid")Integer moduleid,@PathVariable("studentid")UUID studentid,@RequestBody Note note){
-        note.setModule(moduleService.getById(moduleid));
+    @PostMapping("/add/{modulename}/{studentid}")
+    public Note addNote(@PathVariable("modulename")String modulename,@PathVariable("studentid")UUID studentid,@RequestBody Note note){
+        //note.setModule(moduleService.getById(moduleid));
+        note.setModuleName(modulename);
         note.setStudent(studentRepository.findByCode(studentid));
         return noteService.save(note);
     }
@@ -114,8 +115,8 @@ public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
     public List<Note> getNoteByModule(@PathVariable("name") String name){
         return noteRepository.findByModule_NameAndThereIsDifferenceTrue(name);
     }
-    @PostMapping("/add/note1/csv/enseignant/{id}/module/{idm}")
-    public void addNote1UsingCSV(@PathVariable("id") Integer id,@PathVariable("idm")Integer idm,@RequestParam("file") MultipartFile csvFile) throws IOException {
+    @PostMapping("/add/note1/csv/enseignant/{id}/module/{modulename}")
+    public void addNote1UsingCSV(@PathVariable("id") Integer id,@PathVariable("modulename")String idm,@RequestParam("file") MultipartFile csvFile) throws IOException {
         File file = convertMultipartFileToFile(csvFile);
         List<NoteCSVRecord> noteCSVRecords = noteCSVService.convertCSV(file);
         for (NoteCSVRecord noteCSVRecord :noteCSVRecords
@@ -123,7 +124,7 @@ public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
           Note note=  Note.builder().
             enseignant1(enseignantService.getById(id).getFirstName()+" "+enseignantService.getById(id).getLastName())
                     .note1(noteCSVRecord.getNote())
-                  .module(moduleService.getById(idm))
+                  .moduleName(idm)
                     .student(studentRepository.findByCode(UUID.fromString(noteCSVRecord.getCode())))
                     .build();
           noteRepository.save(note);
@@ -132,12 +133,12 @@ public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
         }
     }
     @PostMapping("/add/note2/csv/enseignant/{id}/module/{idm}")
-    public void addNote2UsingCSV(@PathVariable("id") Integer id,@PathVariable("idm")Integer idm,@RequestParam("file") MultipartFile csvFile) throws IOException {
+    public void addNote2UsingCSV(@PathVariable("id") Integer id,@PathVariable("idm")String idm,@RequestParam("file") MultipartFile csvFile) throws IOException {
         File file = convertMultipartFileToFile(csvFile);
         List<NoteCSVRecord> noteCSVRecords = noteCSVService.convertCSV(file);
         for (NoteCSVRecord noteCSVRecord :noteCSVRecords
         ) {
-            Note note=noteRepository.findByModule_NameAndStudent_Code(moduleService.getById(idm).getName(),UUID.fromString(noteCSVRecord.getCode()));
+            Note note=noteRepository.findByModuleNameAndStudent_Code(idm,UUID.fromString(noteCSVRecord.getCode()));
             note.setEnseignant2(enseignantService.getById(id).getFirstName()+" "+enseignantService.getById(id).getLastName());
             note.setNote2(noteCSVRecord.getNote());
             float note1=Integer.parseInt(note.getNote1());
@@ -156,12 +157,12 @@ public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
         }
     }
     @PostMapping("/add/note3/csv/enseignant/{id}/module/{idm}")
-    public void addNote3UsingCSV(@PathVariable("id") Integer id,@PathVariable("idm")Integer idm,@RequestParam("file") MultipartFile csvFile) throws IOException {
+    public void addNote3UsingCSV(@PathVariable("id") Integer id,@PathVariable("idm")String idm,@RequestParam("file") MultipartFile csvFile) throws IOException {
         File file = convertMultipartFileToFile(csvFile);
         List<NoteCSVRecord> noteCSVRecords = noteCSVService.convertCSV(file);
         for (NoteCSVRecord noteCSVRecord :noteCSVRecords
         ) {
-            Note note=noteRepository.findByModule_NameAndStudent_Code(moduleService.getById(idm).getName(),UUID.fromString(noteCSVRecord.getCode()));
+            Note note=noteRepository.findByModuleNameAndStudent_Code(idm,UUID.fromString(noteCSVRecord.getCode()));
             note.setEnseignant3(enseignantService.getById(id).getFirstName()+" "+enseignantService.getById(id).getLastName());
             note.setNote3(noteCSVRecord.getNote());
             float note1=Integer.parseInt(note.getNote1());

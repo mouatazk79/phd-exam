@@ -24,13 +24,18 @@ public class Module {
     @GeneratedValue
     private Integer id;
     private String name;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "speciality_id", referencedColumnName = "id")
     private Speciality speciality;
-    @JsonIgnore
-    @OneToMany(mappedBy = "module",fetch = FetchType.EAGER)
-    private Set<Note> notes = new HashSet<>();
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "module",fetch = FetchType.LAZY)
+    private Set<Note> notes;
+
+    @JsonBackReference
+    public Set<Note> getNotes() {
+        return notes;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "enseignant_id")
     private Enseignant enseignant;
 }

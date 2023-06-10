@@ -21,11 +21,11 @@ public class Note {
     private Integer id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "module_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("notes")
     private Module module;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "studentcode_ref", referencedColumnName = "studentcode")
     private Student student;
+    private String moduleName;
     private String note1;
     private String enseignant1;
     private String note2;
@@ -35,4 +35,8 @@ public class Note {
     private boolean thereIsDifference;
     private String noteFinale;
 
+    @JsonBackReference
+    public Module getModule() {
+        return module;
+    }
 }
