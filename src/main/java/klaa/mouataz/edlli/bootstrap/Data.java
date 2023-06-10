@@ -23,7 +23,7 @@ public class Data implements CommandLineRunner {
     private final StudentRepository studentRepository;
     @Override
     public void run(String... args) throws Exception {
-       System.out.println(studentRepository.findByUid(704));
+      // System.out.println(studentRepository.findByUid(704));
     }
 //    private final UserCSVService userCSVService;
 //    private final UserRepository userRepository;
