@@ -42,7 +42,7 @@ public class NoteController {
         note.setStudent(studentRepository.findByCode(studentid));
         return noteService.save(note);
     }
-    @PostMapping("/add/moyen/student/{id}")
+    @PatchMapping("/add/moyen/student/{id}")
     public void addMoyenToStudent(@PathVariable("id")UUID id){
          List<Note> notes=noteRepository.findByStudent_Code(id);
          float total=0;
