@@ -64,7 +64,7 @@ public class AuthenticationService {
     String number;
     Admin admin= adminRepository.findByUser_Email(user.getEmail());
     CFD cfd=cfdRepository.findByUser_Email(user.getEmail());
-    Student student=studentRepository.findByUser_Email(user.getEmail());
+    Student student=studentRepository.findByUser_Email(request.getEmail());
     Enseignant enseignant=enseignantRepository.findByUser_Email(user.getEmail());
     VDoyen vDoyen=vDoyenRepository.findByUser_Email(user.getEmail());
 
@@ -91,6 +91,7 @@ public class AuthenticationService {
       return AuthenticationResponse.builder()
               .role(user.getRole())
               .id(user.getId())
+              .student(student)
               .token(jwtToken)
               .build();
 
