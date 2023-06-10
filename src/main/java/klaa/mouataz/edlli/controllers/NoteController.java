@@ -50,7 +50,7 @@ public class NoteController {
         for (Note note: notes
              ) {
             if (note.getStudent().getCode().equals(id)){
-                total=total+Integer.parseInt(note.getNoteFinale());
+                total=total+Float.parseFloat(note.getNoteFinale());
              //   System.out.println(note);
             }
         }
