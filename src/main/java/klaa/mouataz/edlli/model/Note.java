@@ -19,7 +19,7 @@ public class Note {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "module_id", referencedColumnName = "id")
     private Module module;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "studentcode_ref", referencedColumnName = "studentcode")
     private Student student;
     private String note1;
