@@ -47,15 +47,19 @@ public class NoteController {
          List<Note> notes=noteRepository.findAll();
 
          float total=0;
+         int number=0;
+         if(!notes.isEmpty()){
         for (Note note: notes
              ) {
-            if (note.getStudent().getCode().equals(id)){
-                total=total+Float.parseFloat(note.getNoteFinale());
-             //   System.out.println(note);
+            if (note.getStudent().getCode().equals(id)) {
+                total = total + Float.parseFloat(note.getNoteFinale());
+                number=number+1;
+                //   System.out.println(note);
             }
         }
+        }
         Student student=studentRepository.findByCode(id);
-        student.setMoyen(total/notes.size());
+        student.setMoyen(total/number);
         studentRepository.save(student);
     }
 //    @PostMapping("/add/csv")
