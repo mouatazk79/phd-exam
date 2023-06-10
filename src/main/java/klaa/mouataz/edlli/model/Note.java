@@ -2,6 +2,7 @@ package klaa.mouataz.edlli.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,9 +19,9 @@ public class Note {
     @Id
     @GeneratedValue
     private Integer id;
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "module_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("notes")
     private Module module;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "studentcode_ref", referencedColumnName = "studentcode")
