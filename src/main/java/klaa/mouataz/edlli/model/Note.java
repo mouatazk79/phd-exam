@@ -18,10 +18,10 @@ public class Note {
     @GeneratedValue
     private Integer id;
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "module_id", referencedColumnName = "id")
     private Module module;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "studentcode_ref", referencedColumnName = "studentcode")
     private Student student;
     private String note1;
