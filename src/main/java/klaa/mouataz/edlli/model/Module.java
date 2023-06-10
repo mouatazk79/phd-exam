@@ -1,6 +1,7 @@
 package klaa.mouataz.edlli.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,7 @@ public class Module {
     @ManyToOne
     @JoinColumn(name = "speciality_id", referencedColumnName = "id")
     private Speciality speciality;
+    @JsonIgnore
     @OneToMany(mappedBy = "module")
     private Set<Note> notes = new HashSet<>();
     @ManyToOne

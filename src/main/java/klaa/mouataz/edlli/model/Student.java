@@ -41,6 +41,7 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "speciality_id", referencedColumnName = "id")
     private Speciality speciality;
+    @JsonIgnore
     @OneToMany(mappedBy = "student")
     private Set<Note> notes = new HashSet<>();
 }
