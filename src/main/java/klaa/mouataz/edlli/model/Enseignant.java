@@ -32,6 +32,8 @@ public class Enseignant {
     private String firstName;
     private String lastName;
     private LocalDate dob;
+    @ElementCollection
+    private List<String> listModules = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String number;

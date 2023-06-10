@@ -48,6 +48,12 @@ public class EnseignantController {
         enseignant.getModules().addAll(modules);
         return enseignantService.updateEnseignant(enseignant);
     }
+    @PatchMapping("/addmodulelist/{id}")
+    public Enseignant addModuleListEnseignant(@PathVariable("id") Integer id, @RequestBody List<String> modules){
+        Enseignant enseignant=enseignantService.getById(id);
+        enseignant.getListModules().addAll(modules);
+        return enseignantService.updateEnseignant(enseignant);
+    }
     @PatchMapping("/addmessage/{id}")
     public Enseignant addMessageEnseignant(@PathVariable("id") Integer id, @RequestBody Message message){
         message.setEnseignant(enseignantService.getById(id));
