@@ -63,6 +63,8 @@ public class NoteController {
 @PatchMapping("/update/{id}")
 public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
         note.setId(id);
+        note.setModuleName(noteService.getById(id).getModuleName());
+        note.setStudent(noteService.getById(id).getStudent());
         float n1=Float.parseFloat(noteService.getById(id).getNote1());
         note.setNote1(String.valueOf(n1));
         float n2=Float.parseFloat(note.getNote2());
@@ -82,6 +84,8 @@ public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
     @PatchMapping("/update3/{id}")
     public Note update3Note(@PathVariable("id")Integer id,@RequestBody Note note){
         note.setId(id);
+        note.setModuleName(noteService.getById(id).getModuleName());
+        note.setStudent(noteService.getById(id).getStudent());
         float n1=Float.parseFloat(noteService.getById(id).getNote1());
         note.setNote1(String.valueOf(n1));
         float n2=Float.parseFloat(noteService.getById(id).getNote2());
