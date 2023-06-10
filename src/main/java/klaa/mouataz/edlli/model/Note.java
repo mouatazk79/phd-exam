@@ -1,5 +1,6 @@
 package klaa.mouataz.edlli.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +17,8 @@ public class Note {
     @Id
     @GeneratedValue
     private Integer id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "module_id", referencedColumnName = "id")
     private Module module;
     @ManyToOne(fetch = FetchType.EAGER)
