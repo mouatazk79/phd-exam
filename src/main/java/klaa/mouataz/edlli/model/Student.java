@@ -38,7 +38,7 @@ public class Student {
     @JsonIgnore
     @OneToOne(mappedBy = "student")
     private User user;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "speciality_id", referencedColumnName = "id")
     private Speciality speciality;
     @JsonIgnore
