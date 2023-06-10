@@ -36,6 +36,6 @@ public class Module {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "enseignant_id")
+    @JoinColumn(name = "enseignant_id",referencedColumnName = "uid")
     private Enseignant enseignant;
 }
