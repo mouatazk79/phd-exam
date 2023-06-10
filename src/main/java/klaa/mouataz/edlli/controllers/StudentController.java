@@ -99,6 +99,7 @@ public class StudentController {
 
     @GetMapping("/student/byuser/{id}")
     public Student getStudentByUserid(@PathVariable("id") Integer id) {
+
         return studentRepository.findByUid(id);
     }
 

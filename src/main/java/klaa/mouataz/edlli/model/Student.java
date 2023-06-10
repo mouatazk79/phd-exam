@@ -42,6 +42,6 @@ public class Student {
     @JoinColumn(name = "speciality_id", referencedColumnName = "id")
     private Speciality speciality;
     @JsonIgnore
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student",fetch = FetchType.EAGER)
     private Set<Note> notes = new HashSet<>();
 }

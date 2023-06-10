@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import klaa.mouataz.edlli.model.StudentCSVRecord;
 import klaa.mouataz.edlli.model.User;
 import klaa.mouataz.edlli.repos.EnseignantRepository;
+import klaa.mouataz.edlli.repos.StudentRepository;
 import klaa.mouataz.edlli.repos.UserRepository;
 import klaa.mouataz.edlli.services.UserCSVService;
 import klaa.mouataz.edlli.services.UserService;
@@ -19,9 +20,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Data implements CommandLineRunner {
     private final EnseignantRepository enseignantRepository;
+    private final StudentRepository studentRepository;
     @Override
     public void run(String... args) throws Exception {
-     //   System.out.println(enseignantRepository.findAll());
+       System.out.println(studentRepository.findByUid(704));
     }
 //    private final UserCSVService userCSVService;
 //    private final UserRepository userRepository;
