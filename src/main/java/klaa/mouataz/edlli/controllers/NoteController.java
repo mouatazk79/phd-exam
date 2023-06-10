@@ -3,6 +3,7 @@ package klaa.mouataz.edlli.controllers;
 import jakarta.transaction.Transactional;
 import klaa.mouataz.edlli.model.Note;
 import klaa.mouataz.edlli.model.NoteCSVRecord;
+import klaa.mouataz.edlli.model.Student;
 import klaa.mouataz.edlli.model.StudentCSVRecord;
 import klaa.mouataz.edlli.repos.NoteRepository;
 import klaa.mouataz.edlli.repos.StudentRepository;
@@ -39,6 +40,18 @@ public class NoteController {
         note.setModule(moduleService.getById(moduleid));
         note.setStudent(studentRepository.findByCode(studentid));
         return noteService.save(note);
+    }
+    @PostMapping("/add/moyen/student/{id}")
+    public void addMoyenToStudent(@PathVariable("id")UUID id){
+         List<Note> notes=noteRepository.findByStudent_Code(id);
+         float total=0;
+        for (Note note: notes
+             ) {
+            total=total+Integer.parseInt(note.getNoteFinale());
+        }
+        Student student=studentRepository.findByCode(id);
+        student.setMoyen(total);
+        studentRepository.save(student);
     }
 //    @PostMapping("/add/csv")
 //    @Transactional
