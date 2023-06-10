@@ -16,10 +16,10 @@ public class Note {
     @Id
     @GeneratedValue
     private Integer id;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "module_id", referencedColumnName = "id")
     private Module module;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "studentcode_ref", referencedColumnName = "studentcode")
     private Student student;
     private String note1;

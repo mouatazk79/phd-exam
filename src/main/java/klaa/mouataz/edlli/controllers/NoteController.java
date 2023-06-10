@@ -50,7 +50,7 @@ public class NoteController {
             total=total+Integer.parseInt(note.getNoteFinale());
         }
         Student student=studentRepository.findByCode(id);
-        student.setMoyen(total);
+        student.setMoyen(total/notes.size());
         studentRepository.save(student);
     }
 //    @PostMapping("/add/csv")
