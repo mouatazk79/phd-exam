@@ -144,7 +144,7 @@ public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
             float note1=Integer.parseInt(note.getNote1());
             float note2=Integer.parseInt(noteCSVRecord.getNote());
             float diff=note1-note2;
-            if(diff>(3)||diff<(-3)){
+            if(diff>=(3)||diff<=(-3)){
                 note.setNoteFinale(null);
                 note.setThereIsDifference(true);
             }else {
