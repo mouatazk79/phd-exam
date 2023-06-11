@@ -104,9 +104,9 @@ public class StudentController {
 
         return studentRepository.findByUid(id);
     }
-    @GetMapping("/allstudentinorder")
-    public List<Student> getStudentsInOrder(){
-        List<Student> students=studentRepository.findAll();
+    @GetMapping("/allstudentinorder/speciality/{name}")
+    public List<Student> getStudentsInOrder(@PathVariable("name")String name){
+        List<Student> students=studentRepository.findBySpecialityName(name);
         Collections.sort(students, Comparator.comparingDouble(Student::getMoyen).reversed());
 
         return students;
