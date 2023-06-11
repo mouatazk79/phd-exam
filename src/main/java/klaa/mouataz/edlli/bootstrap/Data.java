@@ -21,12 +21,12 @@ import java.util.UUID;
 @Component
 @RequiredArgsConstructor
 public class Data implements CommandLineRunner {
-    private final EnseignantRepository enseignantRepository;
-    private final StudentRepository studentRepository;
-    private final NoteRepository noteRepository;
+//    private final EnseignantRepository enseignantRepository;
+//    private final StudentRepository studentRepository;
+//    private final StudentRepository noteRepository;
     @Override
     public void run(String... args) throws Exception {
-      // System.out.println(noteRepository.findByStudent_Id(UUID.fromString("559bd6f9-3324-4f41-a670-25cdd7f8996e")));
+      // System.out.println(noteRepository.findAllOrderByMoyenDesc());
     }
 //    private final UserCSVService userCSVService;
 //    private final UserRepository userRepository;

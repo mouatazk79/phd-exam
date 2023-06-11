@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -102,8 +104,16 @@ public class StudentController {
 
         return studentRepository.findByUid(id);
     }
+    @GetMapping("/allstudentinorder")
+    public List<Student> getStudentsInOrder(){
+        List<Student> students=studentRepository.findAll();
+        Collections.sort(students, Comparator.comparingDouble(Student::getMoyen).reversed());
 
-    private File convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
+        return students;
+    }
+
+
+        private File convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
         File file = new File(multipartFile.getOriginalFilename());
         try (OutputStream outputStream = new FileOutputStream(file)) {
             outputStream.write(multipartFile.getBytes());

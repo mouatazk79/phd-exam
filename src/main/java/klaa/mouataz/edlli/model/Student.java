@@ -44,4 +44,6 @@ public class Student {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "student",fetch = FetchType.LAZY)
     private Set<Note> notes = new HashSet<>();
+
+
 }
