@@ -22,5 +22,5 @@ public class Reclamation {
     @GeneratedValue
     private Integer id;
     private String description;
-    private UUID uuid;
+    private Integer student;
 }

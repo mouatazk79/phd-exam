@@ -22,7 +22,7 @@ public class ReclamationController {
         return reclamationRepository.save(reclamation);
     }
     @GetMapping("/get/{id}")
-    public List<Reclamation> getReclamationsByUUID(@PathVariable("id")UUID id){
-        return reclamationRepository.findAllByUuid(id);
+    public List<Reclamation> getReclamationsByUUID(@PathVariable("id")Integer id){
+        return reclamationRepository.findAllByStudent(id);
     }
 }

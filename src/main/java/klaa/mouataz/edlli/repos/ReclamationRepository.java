@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface ReclamationRepository extends JpaRepository<Reclamation,Integer> {
-    List<Reclamation> findAllByUuid(UUID uuid);
+    List<Reclamation> findAllByStudent(Integer uuid);
 }
