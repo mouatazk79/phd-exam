@@ -42,6 +42,16 @@ public class NoteController {
         note.setStudent(studentRepository.findByCode(studentid));
         return noteService.save(note);
     }
+    @PatchMapping("/update/enseignamt3/{id}")
+    public void addEnseignant3(@PathVariable("id") Integer id){
+        List<Note> notes=noteRepository.findAll();
+        for (Note note:notes
+             ) {
+            if(note.isThereIsDifference()==true){
+                note.setEnseignant3(enseignantService.getById(id).getFirstName()+" "+enseignantService.getById(id).getLastName());
+            }
+        }
+    }
     @GetMapping("/add/moyen/student/{id}")
     public void addMoyenToStudent(@PathVariable("id")UUID id){
          List<Note> notes=noteRepository.findAll();
@@ -187,6 +197,7 @@ public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
 
         }
     }
+
     private File convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
         File file = new File(multipartFile.getOriginalFilename());
         try (OutputStream outputStream = new FileOutputStream(file)) {
