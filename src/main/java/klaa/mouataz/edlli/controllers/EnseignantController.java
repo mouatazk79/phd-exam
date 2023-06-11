@@ -37,7 +37,7 @@ public class EnseignantController {
     public void deleteEnseignant(@PathVariable("id")Integer id){
         enseignantService.deleteById(id);
     }
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public Enseignant updateEnseignant(@PathVariable("id") Integer id,@RequestBody Enseignant enseignant){
         enseignant.setId(id);
         return enseignantService.updateEnseignant(enseignant);
