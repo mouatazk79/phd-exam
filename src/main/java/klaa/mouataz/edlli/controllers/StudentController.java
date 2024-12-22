@@ -6,9 +6,6 @@ import klaa.mouataz.edlli.enumerations.Role;
 import klaa.mouataz.edlli.model.Student;
 import klaa.mouataz.edlli.model.StudentCSVRecord;
 import klaa.mouataz.edlli.model.User;
-import klaa.mouataz.edlli.repos.SpecialityRepository;
-import klaa.mouataz.edlli.repos.StudentRepository;
-import klaa.mouataz.edlli.repos.UserRepository;
 import klaa.mouataz.edlli.services.StudentService;
 import klaa.mouataz.edlli.services.UserCSVService;
 import lombok.RequiredArgsConstructor;
@@ -30,11 +27,8 @@ import java.util.UUID;
 public class StudentController {
     private  final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final StudentService studentService;
-    private final StudentRepository studentRepository;
     private final UserCSVService userCSVService;
-    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final SpecialityRepository specialityRepository;
 
     @GetMapping
     public List<Student> getAllStudents() {
@@ -69,10 +63,9 @@ public class StudentController {
                             .code(UUID.randomUUID())
                             .dob( LocalDate.parse(studentCSVRecord.getDob(),dtf))
                             .gender(studentCSVRecord.getGender())
-                            .speciality(specialityRepository.getSpecialityByName(studentCSVRecord.getSpeciality()))
+                        //    .speciality(specialityRepository.getSpecialityByName(studentCSVRecord.getSpeciality()))
                             .build();
-             //   System.out.println(student);
-                    studentRepository.save(student);
+                  //  studentService.save(student);
                     User user = User.builder()
                             .id(studentCSVRecord.getId())
                             .email(studentCSVRecord.getEmail())
@@ -80,7 +73,7 @@ public class StudentController {
                             .role(Role.STUDENT)
                             .student(student)
                             .build();
-                    userRepository.save(user);
+                    userCSVService.save(user);
 
                 }else {
                     System.out.println("none");
@@ -102,11 +95,11 @@ public class StudentController {
     @GetMapping("/student/byuser/{id}")
     public Student getStudentByUserid(@PathVariable("id") Integer id) {
 
-        return studentRepository.findByUid(id);
+        return studentService.getById(id);
     }
     @GetMapping("/allstudentinorder/speciality/{name}")
     public List<Student> getStudentsInOrder(@PathVariable("name")String name){
-        List<Student> students=studentRepository.findBySpecialityName(name);
+        List<Student> students=studentService.findBySpecialityName(name);
         Collections.sort(students, Comparator.comparingDouble(Student::getMoyen).reversed());
 
         return students;

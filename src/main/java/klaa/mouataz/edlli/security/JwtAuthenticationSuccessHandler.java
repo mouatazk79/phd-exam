@@ -16,9 +16,7 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        System.out.println("hhhhhhhhhhhhhh");
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-
         if (roles.contains("ADMIN")) {
             response.sendRedirect("/api/v1/demo-controlle");
             System.out.println("admin");

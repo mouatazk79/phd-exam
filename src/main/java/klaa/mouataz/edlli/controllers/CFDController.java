@@ -2,7 +2,6 @@ package klaa.mouataz.edlli.controllers;
 
 import klaa.mouataz.edlli.dto.StaffRequest;
 import klaa.mouataz.edlli.model.CFD;
-import klaa.mouataz.edlli.model.Enseignant;
 import klaa.mouataz.edlli.repos.CFDRepository;
 import klaa.mouataz.edlli.services.CFDService;
 import lombok.RequiredArgsConstructor;

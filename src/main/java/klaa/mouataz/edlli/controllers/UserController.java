@@ -1,8 +1,6 @@
 package klaa.mouataz.edlli.controllers;
 
 import klaa.mouataz.edlli.model.User;
-import klaa.mouataz.edlli.repos.UserRepository;
-import klaa.mouataz.edlli.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

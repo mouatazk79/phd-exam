@@ -1,10 +1,8 @@
 package klaa.mouataz.edlli.controllers;
 
 import klaa.mouataz.edlli.dto.StaffRequest;
-import klaa.mouataz.edlli.model.Student;
 import klaa.mouataz.edlli.model.VDoyen;
 import klaa.mouataz.edlli.repos.VDoyenRepository;
-import klaa.mouataz.edlli.services.VDoyenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

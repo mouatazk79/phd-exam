@@ -1,13 +1,10 @@
 package klaa.mouataz.edlli;
 
-import klaa.mouataz.edlli.repos.StudentRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.boot.CommandLineRunner;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.Ordered;
 
 import org.springframework.web.cors.CorsConfiguration;

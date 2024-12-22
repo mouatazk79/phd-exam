@@ -28,10 +28,5 @@ public class ModuleController {
 
         moduleService.deleteById(id);
     }
-    @PutMapping("/{id}")
-    public Module updateVDoyen(@PathVariable("id") Integer id, @RequestBody Module module){
-        module.setId(id);
-        return moduleService.updateModule(module);
-    }
-    //ooo
+
 }

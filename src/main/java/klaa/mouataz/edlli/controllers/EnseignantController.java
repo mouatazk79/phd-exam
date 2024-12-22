@@ -4,14 +4,12 @@ import klaa.mouataz.edlli.dto.StaffRequest;
 import klaa.mouataz.edlli.model.Enseignant;
 import klaa.mouataz.edlli.model.Message;
 import klaa.mouataz.edlli.model.Module;
-import klaa.mouataz.edlli.repos.EnseignantRepository;
 import klaa.mouataz.edlli.services.EnseignantService;
 import klaa.mouataz.edlli.services.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,7 +17,6 @@ import java.util.Set;
 public class EnseignantController {
     private final EnseignantService enseignantService;
     private final MessageService messageService;
-    private final EnseignantRepository enseignantRepository;
 
     @GetMapping
     public List<Enseignant> getEnseignants(){
@@ -63,9 +60,6 @@ public class EnseignantController {
         return enseignantService.updateEnseignant(enseignant);
 
     }
-    @GetMapping("/enseignant/byuser/{id}")
-    public Enseignant getEnseignantByUserid(@PathVariable("id")Integer id){
-        return enseignantRepository.findByUid(id);
-    }
+
 
 }

@@ -1,15 +1,14 @@
 package klaa.mouataz.edlli.controllers;
 
-import jakarta.transaction.Transactional;
 import klaa.mouataz.edlli.model.Note;
 import klaa.mouataz.edlli.model.NoteCSVRecord;
 import klaa.mouataz.edlli.model.Student;
-import klaa.mouataz.edlli.model.StudentCSVRecord;
 import klaa.mouataz.edlli.repos.NoteRepository;
 import klaa.mouataz.edlli.repos.StudentRepository;
-import klaa.mouataz.edlli.services.*;
+import klaa.mouataz.edlli.services.EnseignantService;
+import klaa.mouataz.edlli.services.NoteCSVService;
+import klaa.mouataz.edlli.services.NoteService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +23,6 @@ public class NoteController {
     private final NoteService noteService;
     private final NoteRepository noteRepository;
     private final StudentRepository studentRepository;
-    private final ModuleService moduleService;
     private final NoteCSVService noteCSVService;
     private final EnseignantService enseignantService;
     @GetMapping
@@ -64,7 +62,6 @@ public class NoteController {
             if (note.getStudent().getCode().equals(id)) {
                 total = total + Float.parseFloat(note.getNoteFinale());
                 number=number+1;
-                //   System.out.println(note);
             }
         }
         }
@@ -72,12 +69,7 @@ public class NoteController {
         student.setMoyen(total/number);
         studentRepository.save(student);
     }
-//    @PostMapping("/add/csv")
-//    @Transactional
-//    public void addNotesCSV(@RequestParam("file") MultipartFile file) throws FileNotFoundException {
-//        List<NoteCSVRecord> noteCSVRecords= NoteCSVService.convertCSV(file);
-//        noteCSVRecords.forEach(noteCSVRecord -> noteService.save(Note.builder().id(noteCSVRecord.getId()).note1(noteCSVRecord.getNote1()).note2(noteCSVRecord.getNote2()).note3(noteCSVRecord.getNote3()).build()));
-//    }
+
 @PatchMapping("/update/{id}")
 public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
         note.setId(id);
@@ -174,7 +166,6 @@ public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
                 note.setNoteFinale(String.valueOf(Float.max(note1,note2)));
             }
             noteRepository.save(note);
-            //System.out.println(noteCSVRecord);
 
         }
     }
@@ -193,7 +184,6 @@ public Note updateNote(@PathVariable("id")Integer id,@RequestBody Note note){
             note.setNoteFinale(String.valueOf(Float.max(Float.max(note1,note2),note3)));
             note.setThereIsDifference(true);
             noteRepository.save(note);
-            //System.out.println(noteCSVRecord);
 
         }
     }
